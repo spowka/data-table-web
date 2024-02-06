@@ -1,0 +1,13 @@
+<!-- [token]="token" -->
+<app-table 
+    [columns]="columnDefs"
+    [autoLoading]="true"
+    [messageNotFound]="'No Data'"
+    [messagePending]="'Loading...'"
+    [header]="'Crime List'"
+    (onGridReady)="onGridReady($event)"
+    (onClickByRowEvent)="onClickByRowEvent($event)"
+    (onEmptyEvent)="onEmptyEvent($event)"
+    (onUpdatedEvent)="onUpdatedEvent($event)"
+    (onErrorEvent)="onErrorEvent($event)">
+</app-table>
