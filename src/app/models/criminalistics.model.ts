@@ -10,3 +10,13 @@ export interface CrimeRecord {
     suspect_name: string;
     suspect_gender: string;
 }
+
+export interface CrimeResponseInterface {
+    data: any[];
+    first: number;
+    items: number;
+    last: number;
+    next: number;
+    pages: number;
+    prev: number;
+}

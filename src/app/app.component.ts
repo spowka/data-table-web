@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, InjectionToken } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import {
@@ -17,7 +17,8 @@ import { CrimeDateComponent } from './components/crime-date/crime-date.component
 import { CriminalisticsService } from './services/criminalistics.service';
 import { CriminalisticsTableDefinitions } from './constants/criminalistics-table-definitions';
 
-import { environment } from '../environments/environment';
+const DATA_SERVICE_TOKEN = new InjectionToken<CriminalisticsService>('DataServiceClient');
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -28,18 +29,24 @@ import { environment } from '../environments/environment';
     CrimeDateComponent,
     HttpClientModule
   ],
-  providers: [CriminalisticsService],
+  providers: [
+    { provide: DATA_SERVICE_TOKEN, useClass: CriminalisticsService },
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  public token = `${environment.API_URL}/criminalistics`
+  public token = DATA_SERVICE_TOKEN;
   public columnDefs: ColumnPropertiesInterface[] = CriminalisticsTableDefinitions;
 
   constructor() { }
 
   onGridReady(api: GridApi) {
-    api.getData(this.token);
+    // To force load the data
+    // api.getData();
+
+    // To force load the data with provided token
+    // api.getData(this.token);
   }
 
   onClickByRowEvent(event: ClickByRowEventInterface) {
